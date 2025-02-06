@@ -23,13 +23,12 @@ My work on completing Full Stack Open
 - ~~Section B~~
     - ~~Exercise 2.6-2.10~~ 
         - Double check best practices on 2.10
-- Section C
-    - Exercise 2.11
-- Section D
-    - Exercise 2.12-2.15
-- Section E
+- ~~Section C~~
+    - ~~Exercise 2.11~~
+- ~~Section D~~
+    - ~~Exercise 2.12-2.15~~
+- ~~Section E~~
     - Exercise 2.16-2.20
-
 
 ### Part 3:
 

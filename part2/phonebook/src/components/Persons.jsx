@@ -1,16 +1,19 @@
-const Number = ({ person }) => {
+const Number = ({ person, removePerson }) => {
   return (
-    <div>{person.name} {person.number}</div>
+    <div>
+      {person.name} {person.number}
+      <button type="button" onClick={() => removePerson(person.id)}>Delete</button>
+    </div>
   )
 }
 
-const Persons = ({ filteredPersons }) => {
+const Persons = ({ filteredPersons, removePerson }) => {
 
   return (
     <>
       {
         filteredPersons.map(person =>
-          <Number key={person.name} person={person} />
+          <Number key={person.name} person={person} removePerson={removePerson} />
         )
       }
     </>
