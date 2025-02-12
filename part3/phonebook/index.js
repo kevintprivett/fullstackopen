@@ -1,6 +1,18 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
+const morgan = require('morgan')
+
+morgan.token(
+  'body',
+  (request, response) => {
+    return JSON.stringify(request.body)
+  })
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+
 let persons = 
   [
     {
@@ -43,6 +55,50 @@ app.get('/api/persons/:id', (request, response) => {
   else {
     response.status(404).end()
   }
+})
+
+app.delete('/api/persons/:id', (request, response) => {
+  const id = request.params.id
+  persons = persons.filter(person => person.id !== id)
+
+  response.status(204).end()
+})
+
+const generateId = () => {
+  return String(Math.floor(Math.random() * 2 ** 16))
+}
+
+app.post('/api/persons', (request, response) => {
+  const body = request.body
+
+  if (!body.name) {
+    return response.status(400).json({
+      error: 'name missing'
+    })
+  }
+
+  if (!body.number) {
+    return response.status(400).json({
+      error: 'number missing'
+    })
+  }
+
+  if (persons.reduce(
+        (found, person) => found || body.name === person.name,
+        false)) {
+    return response.status(400).json({
+      error: 'name must be unique'
+    })
+  }
+
+  const person = {
+    name: body.name,
+    number: body.number,
+    id: generateId()
+  }
+
+  persons = persons.concat(person)
+  response.json(person)
 })
 
 app.get('/info', (request, response) => {
