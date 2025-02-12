@@ -1,0 +1,49 @@
+{
+  "notes": [
+    {
+      "id": "1",
+      "content": "HTML is easy",
+      "important": true
+    },
+    {
+      "id": "2",
+      "content": "Browser can execute only JavaScript",
+      "important": true
+    },
+    {
+      "id": "3",
+      "content": "GET and POST are the most important methods of HTTP protocol",
+      "important": true
+    },
+    {
+      "id": "fa62",
+      "content": "Never ever ever give up",
+      "important": true
+    },
+    {
+      "id": "6bdb",
+      "content": "listen baby",
+      "important": true
+    },
+    {
+      "id": "dc28",
+      "content": "listen baby",
+      "important": true
+    },
+    {
+      "id": "6668",
+      "content": "ain't no mountain high",
+      "important": true
+    },
+    {
+      "id": "fac7",
+      "content": "ain't no valley low",
+      "important": true
+    },
+    {
+      "id": "1a04",
+      "content": "ain't no river wide enough baby",
+      "important": true
+    }
+  ]
+}
