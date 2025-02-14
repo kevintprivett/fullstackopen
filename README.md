@@ -33,8 +33,8 @@ My work on completing Full Stack Open
 ### Part 3:
 - ~~Section A~~
     - ~~Exercise 3.1-3.8~~
-- Section B
-    - Exercise 3.9-3.11
+- ~~Section B~~
+    - ~~Exercise 3.9-3.11~~
 - Section C
     - Exercise 3.12-3.14
 - Section D

@@ -3,6 +3,12 @@ const app = express()
 
 app.use(express.json())
 
+const cors = require('cors')
+
+app.use(cors())
+
+app.use(express.static('dist'))
+
 const morgan = require('morgan')
 
 morgan.token(
@@ -112,7 +118,7 @@ app.get('/info', (request, response) => {
   `)
 })
 
-const PORT = 5173
+const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
