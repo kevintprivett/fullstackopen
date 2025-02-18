@@ -22,7 +22,6 @@ My work on completing Full Stack Open
     - ~~Exercise 2.1-2.5~~
 - ~~Section B~~
     - ~~Exercise 2.6-2.10~~ 
-        - Double check best practices on 2.10
 - ~~Section C~~
     - ~~Exercise 2.11~~
 - ~~Section D~~
