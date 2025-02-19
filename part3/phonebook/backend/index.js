@@ -39,11 +39,12 @@ app.get('/api/persons/:id', (request, response) => {
   })
 })
 
-app.delete('/api/persons/:id', (request, response) => {
-  const id = request.params.id
-  persons = persons.filter(person => person.id !== id)
-
-  response.status(204).end()
+app.delete('/api/persons/:id', (request, response, next) => {
+  Person.findByIdAndDelete(request.params.id)
+    .then(result => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
 })
 
 app.post('/api/persons', (request, response) => {
@@ -61,14 +62,6 @@ app.post('/api/persons', (request, response) => {
     })
   }
 
-  // if (persons.reduce(
-  //       (found, person) => found || body.name === person.name,
-  //       false)) {
-  //   return response.status(400).json({
-  //     error: 'name must be unique'
-  //   })
-  // }
-
   const person = new Person({
     name: body.name,
     number: body.number,
@@ -79,16 +72,45 @@ app.post('/api/persons', (request, response) => {
   })
 })
 
-app.get('/info', (request, response) => {
-  const todayDate = new Date(Date.now())
-  const today = todayDate.toUTCString()
+app.put('/api/persons/:id', (request, response, next) => {
+  const body = request.body
 
-  response.send(`
-    <div>Phonebook has info for ${persons.length} people</div>
-    <br />
-    <div>${today}</div>
-  `)
+  const person = {
+    name: body.name,
+    number: body.number,
+  }
+
+  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+    .then(updatedPerson => {
+      response.json(updatedPerson)
+    })
+    .catch(error => next(error))
 })
+
+app.get('/info', (request, response) => {
+  Person.countDocuments({}).then(count => {
+    const todayDate = new Date(Date.now())
+    const today = todayDate.toUTCString()
+
+    response.send(`
+      <div>Phonebook has info for ${count} people</div>
+      <br />
+      <div>${today}</div>
+    `)
+  })
+})
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  }
+
+  next(error)
+}
+
+app.use(errorHandler)
 
 const PORT = 3001
 app.listen(PORT, () => {
