@@ -67,6 +67,14 @@ const App = () => {
           setConfirmationMessage(null)
         }, 3000)
       })
+      .catch(error => {
+        setRemoveErrorMessage(
+          `${error.response.data.error}`
+        )
+        setTimeout(() => {
+          setRemoveErrorMessage(null)
+        }, 3000)
+      })
   }
 
   const handleNameChange = (event) => {

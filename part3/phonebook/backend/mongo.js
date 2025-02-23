@@ -7,7 +7,7 @@ if (process.argv.length<3) {
 
 const password = process.argv[2]
 
-const url = 
+const url =
   `mongodb+srv://kevin:${password}@cluster0.95zob.mongodb.net/phonebook?
     retryWrites=true&w=majority&appName=Cluster0`
 
@@ -22,21 +22,11 @@ const personSchema = new mongoose.Schema({
 
 const Person = mongoose.model('Person', personSchema)
 
-// const person = new Person({
-//   name: "John Lennon",
-//   number: "123456789",
-// })
-// 
-// person.save().then(result => {
-//   console.log('person saved!')
-//   mongoose.connection.close()
-// })
-
 // no extra args, return all database entries
-if (process.argv.length == 3) {
+if (process.argv.length === 3) {
 
   Person.find({}).then(result => {
-    console.log("phonebook:")
+    console.log('phonebook:')
     result.forEach(person => {
       console.log(`${person.name} ${person.number}`)
     })
@@ -44,7 +34,7 @@ if (process.argv.length == 3) {
   })
 }
 
-else if (process.argv.length == 5) {
+else if (process.argv.length === 5) {
   const person = new Person({
     name: process.argv[3],
     number: process.argv[4]
@@ -53,5 +43,6 @@ else if (process.argv.length == 5) {
   person.save().then(result => {
     console.log('person saved!')
     mongoose.connection.close()
+    result
   })
 }
