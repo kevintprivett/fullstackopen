@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {
-    "title": "Bits and Peas",
-    "author": "Oliver Stoneworth",
-    "url": "www.bitsnpeas.uk",
-    "likes": 22
+    "title": "Byte budgets",
+    "author": "Linus Arelius",
+    "url": "www.byte_budgets.com",
+    "likes": 5
 }
