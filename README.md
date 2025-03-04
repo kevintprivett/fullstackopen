@@ -36,10 +36,17 @@ My work on completing Full Stack Open
     - ~~Exercise 3.9-3.11~~
 - ~~Section C~~
     - ~~Exercise 3.12-3.14~~
-- Section D
-    - Exercise 3.19-3.21
+- ~~Section D~~
+    - ~~Exercise 3.19-3.21~~
 
-### Part 4:
+### Part 4:  
+- ~~Section A~~
+    - ~~Exercise 4.1-4.7~~
+- Section B
+    - Exercise 4.8-4.14
+- Section C
+- Section D
+    - Exercise 4.15-4.23
 
 ### Part 5:
 
