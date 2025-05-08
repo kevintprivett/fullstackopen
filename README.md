@@ -42,9 +42,9 @@ My work on completing Full Stack Open
 ### Part 4:  
 - ~~Section A~~
     - ~~Exercise 4.1-4.7~~
-- Section B
-    - Exercise 4.8-4.14
-- Section C
+- ~~Section B~~
+    - ~~Exercise 4.8-4.14~~
+- ~~Section C~~
 - Section D
     - Exercise 4.15-4.23
 
