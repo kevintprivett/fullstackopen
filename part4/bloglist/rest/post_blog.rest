@@ -2,7 +2,7 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {
-    "title": "Byte budgets",
+    "title": "Byte budgets 2",
     "author": "Linus Arelius",
     "url": "www.byte_budgets.com",
     "likes": 5
