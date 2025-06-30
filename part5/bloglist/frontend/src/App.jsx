@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import CreateBlog from './components/CreateBlog'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [infoMessage, setInfoMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -15,6 +19,15 @@ const App = () => {
     )  
   }, [])
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      blogService.setToken(user.token)
+    }
+  }, [])
+
   const handleLogin = async (event) => {
     event.preventDefault()
 
@@ -22,14 +35,45 @@ const App = () => {
       const user = await loginService.login({
         username, password,
       })
+
+      window.localStorage.setItem(
+        'loggedBloglistUser', JSON.stringify(user)
+      )
+      blogService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')
     } catch(exception) {
-      console.log('Wrong credentials')
+      setErrorMessage('Wrong credentials')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+  }
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('loggedBloglistUser') 
+    setUser(null)
+    console.log("User logged out")
+  }
+
+  const handleCreate = async (event) => {
+    event.preventDefault()
+
+    try {
+      const blogObject = {
+        title: event.target.title.value,
+        author: event.target.author.value,
+        url: event.target.author.value,
+      }
+      setBlogs(blogs.concat(blogObject))
+      await blogService.create(blogObject)
+      setInfoMessage(`${blogObject.title} by ${blogObject.author} added`)
+      setTimeout(() => {
+        setInfoMessage(null)
+      }, 5000)
+    } catch (exception) {
       console.log(exception)
-      // setErrorMessage('Wrong credentials')
-      // setTimeout logic
     }
   }
 
@@ -59,7 +103,8 @@ const App = () => {
 
   const renderBlogs = () => (
     <>
-      <p>{user.name} logged in </p>
+      <p>{user.name} logged in <button onClick={handleLogout}>Logout</button></p>
+      <CreateBlog handleCreate={handleCreate} />
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
@@ -69,6 +114,8 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
+      <Notification errorMessage={errorMessage} infoMessage={infoMessage}/>
+
       {user === null && loginForm()}
       {user !== null && renderBlogs()}
     </div>
