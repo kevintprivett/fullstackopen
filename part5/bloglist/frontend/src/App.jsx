@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import CreateBlog from './components/CreateBlog'
 import Notification from './components/Notification'
@@ -13,10 +13,11 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const blogFormRef = useRef()
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogs( blogs )
+      setBlogs(blogs.toSorted((blogA, blogB) => blogA.likes - blogB.likes))
     )  
   }, [])
 
@@ -67,12 +68,47 @@ const App = () => {
         author: event.target.author.value,
         url: event.target.author.value,
       }
-      setBlogs(blogs.concat(blogObject))
+      setBlogs(blogs
+        .concat(blogObject)
+        .toSorted((blogA, blogB) => blogA.likes - blogB.likes))
+      blogFormRef.current.toggleVisibility()
       await blogService.create(blogObject)
       setInfoMessage(`${blogObject.title} by ${blogObject.author} added`)
       setTimeout(() => {
         setInfoMessage(null)
       }, 5000)
+    } catch (exception) {
+      console.log(exception)
+    }
+  }
+
+  const handleLike = async (blog) => {
+    try {
+      const newBlog = {
+        ...blog,
+        likes: blog.likes + 1
+      }
+
+      setBlogs(
+        blogs.map(blog => (blog.id === newBlog.id ? newBlog : blog))
+          .toSorted((blogA, blogB) => blogA.likes - blogB.likes)
+      )
+
+      await blogService.update(newBlog)
+    } catch (exception) {
+      console.log(exception)
+    }
+  }
+
+  const handleDelete = async (id) => {
+    try {
+      setBlogs(
+        blogs
+          .filter(blog => blog.id !== id)
+          .toSorted((blogA, blogB) => blogA.likes - blogB.likes)
+      )
+
+      await blogService.remove(id)
     } catch (exception) {
       console.log(exception)
     }
@@ -105,14 +141,22 @@ const App = () => {
   const renderBlogs = () => (
     <>
       <p>{user.name} logged in <button onClick={handleLogout}>Logout</button></p>
-      <Togglable buttonLabel='new blog'>
+      <Togglable buttonLabel='new blog' ref={blogFormRef}>
         <CreateBlog handleCreate={handleCreate} />
       </Togglable>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog 
+          key={blog.id}
+          blog={blog}
+          handleLike={handleLike}
+          showDelete={blog.user ? user.username === blog.user.username : false}
+          handleDelete={handleDelete}
+        />
       )}
     </>
   )
+
+  console.log(user)
 
   return (
     <div>
