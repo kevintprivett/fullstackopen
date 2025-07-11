@@ -1,21 +1,21 @@
 const Notification = ({ errorMessage, infoMessage }) => {
-    if (errorMessage === null && infoMessage === null) {
-        return null
-    }
+  if (errorMessage === null && infoMessage === null) {
+    return null
+  }
 
-    if (errorMessage === null) {
-        return (
-            <div className='info'>
-                {infoMessage}
-            </div>
-        )
-    }
-
+  if (errorMessage === null) {
     return (
-        <div className='error'>
-            {errorMessage}
-        </div>
+      <div className='info'>
+        {infoMessage}
+      </div>
     )
+  }
+
+  return (
+    <div className='error'>
+      {errorMessage}
+    </div>
+  )
 }
 
 export default Notification

@@ -10,7 +10,7 @@ const CreateBlog = ({ handleCreate }) => (
       <input type="text" id="url" name="url"/><br />
       <input type="submit" value="create"/>
     </form>
-  </div>  
+  </div>
 )
 
 export default CreateBlog

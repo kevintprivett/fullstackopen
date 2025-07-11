@@ -18,7 +18,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs(blogs.toSorted((blogA, blogB) => blogA.likes - blogB.likes))
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -54,9 +54,9 @@ const App = () => {
   }
 
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedBloglistUser') 
+    window.localStorage.removeItem('loggedBloglistUser')
     setUser(null)
-    console.log("User logged out")
+    console.log('User logged out')
   }
 
   const handleCreate = async (event) => {
@@ -116,25 +116,25 @@ const App = () => {
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
-    <div>
+      <div>
         username
         <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
+          type="text"
+          value={username}
+          name="Username"
+          onChange={({ target }) => setUsername(target.value)}
         />
-    </div>
-    <div>
+      </div>
+      <div>
         password
         <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target}) => setPassword(target.value)}
+          type="password"
+          value={password}
+          name="Password"
+          onChange={({ target }) => setPassword(target.value)}
         />
-    </div>
-    <button type="submit">login</button>
+      </div>
+      <button type="submit">login</button>
     </form>
   )
 
@@ -145,7 +145,7 @@ const App = () => {
         <CreateBlog handleCreate={handleCreate} />
       </Togglable>
       {blogs.map(blog =>
-        <Blog 
+        <Blog
           key={blog.id}
           blog={blog}
           handleLike={handleLike}

@@ -25,14 +25,14 @@ const Blog = ({ blog, handleLike, handleDelete, showDelete }) => {
       <div>
         {blog.title} {blog.author}
         <button onClick={toggleVisibility}>{visible ? 'hide' : 'show'}</button>
-      </div>  
+      </div>
       <div style={showWhenVisible}>
         <div>{blog.url}</div>
         <div>Likes: {blog.likes}<button onClick={() => handleLike(blog)}>like</button></div>
         <div>{blog.user ? blog.user.name : ''}</div>
         <div>
           <button
-            style={deleteButtonStyle} 
+            style={deleteButtonStyle}
             onClick={
               () => {
                 if (window.confirm(`Do you want to delete ${blog.title} by ${blog.author}?`)) {

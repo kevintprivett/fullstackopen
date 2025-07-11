@@ -49,7 +49,7 @@ const App = () => {
       noteService.setToken(user.token)
     }
   }, [])
-  
+
   const toggleImportanceOf = id => {
     const note = notes.find(n => n.id === id)
     const changedNote = { ...note, important: !note.important }
@@ -66,7 +66,7 @@ const App = () => {
         setTimeout(() => {
           setErrorMessage(null)
         }, 5000)
-        setNotes(notes.filter(n => n.id != id))
+        setNotes(notes.filter(n => n.id !== id))
       })
   }
 
@@ -161,10 +161,10 @@ const App = () => {
         </button>
       </div>
       <ul>
-        {notesToShow.map(note => 
-          <Note 
-            key={note.id} 
-            note={note} 
+        {notesToShow.map(note =>
+          <Note
+            key={note.id}
+            note={note}
             toggleImportance={() => toggleImportanceOf(note.id)}
           />
         )}
