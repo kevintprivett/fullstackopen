@@ -59,15 +59,8 @@ const App = () => {
     console.log('User logged out')
   }
 
-  const handleCreate = async (event) => {
-    event.preventDefault()
-
+  const handleCreate = async (blogObject) => {
     try {
-      const blogObject = {
-        title: event.target.title.value,
-        author: event.target.author.value,
-        url: event.target.author.value,
-      }
       setBlogs(blogs
         .concat(blogObject)
         .toSorted((blogA, blogB) => blogA.likes - blogB.likes))
