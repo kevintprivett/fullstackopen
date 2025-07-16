@@ -21,6 +21,7 @@ const CreateBlog = ({ handleCreate }) => {
       <form onSubmit={createBlog}>
         <label htmlFor="title">title:</label>
         <input 
+          data-testid='title'
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -28,6 +29,7 @@ const CreateBlog = ({ handleCreate }) => {
         <br />
         <label htmlFor="author">author:</label>
         <input 
+          data-testid='author'
           type="text"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
@@ -35,6 +37,7 @@ const CreateBlog = ({ handleCreate }) => {
         <br />
         <label htmlFor="url">url:</label>
         <input 
+          data-testid='url'
           type="text"
           value={url}
           onChange={(e) => setUrl(e.target.value)}

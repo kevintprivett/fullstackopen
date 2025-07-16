@@ -61,11 +61,14 @@ const App = () => {
 
   const handleCreate = async (blogObject) => {
     try {
+      const newBlog = await blogService.create(blogObject)
+
       setBlogs(blogs
-        .concat(blogObject)
+        .concat(newBlog)
         .toSorted((blogA, blogB) => blogA.likes - blogB.likes))
+
       blogFormRef.current.toggleVisibility()
-      await blogService.create(blogObject)
+
       setInfoMessage(`${blogObject.title} by ${blogObject.author} added`)
       setTimeout(() => {
         setInfoMessage(null)
@@ -112,6 +115,7 @@ const App = () => {
       <div>
         username
         <input
+          data-testid='username'
           type="text"
           value={username}
           name="Username"
@@ -121,6 +125,7 @@ const App = () => {
       <div>
         password
         <input
+          data-testid='password'
           type="password"
           value={password}
           name="Password"
@@ -148,8 +153,6 @@ const App = () => {
       )}
     </>
   )
-
-  console.log(user)
 
   return (
     <div>
