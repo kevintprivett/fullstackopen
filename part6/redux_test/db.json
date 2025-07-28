@@ -14,6 +14,16 @@
       "id": "b8fb",
       "content": "my new note",
       "important": false
+    },
+    {
+      "id": "375b",
+      "content": "my new new note",
+      "important": false
+    },
+    {
+      "id": "789e",
+      "content": "my pretty new note",
+      "important": false
     }
   ]
 }
